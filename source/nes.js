@@ -22,7 +22,7 @@ import CPU from './cpu';
 import PPU from './ppu';
 import PAPU from './papu';
 import ROM from './rom';
-import Keyboard from './keyboard';
+import Controllers from './controllers';
 
 const DummyUI = function(nes) {
     this.nes = nes;
@@ -63,7 +63,7 @@ const JSNES = function(opts) {
     this.ppu = new PPU(this);
     this.papu = new PAPU(this);
     this.mmap = null; // set in loadRom()
-    this.keyboard = new Keyboard();
+    this.controllers = new Controllers();
 
     this.ui.updateStatus("Ready to load a ROM.");
 

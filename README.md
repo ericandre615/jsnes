@@ -8,6 +8,7 @@ Build
 -----
 
 `npm install`
+
 `npm run build`
 
 `var nes = new JSNES(opts)` has been removed to now use `let nes = JSNES.create(opts)` but still uses the `new` constructor behind the scenes. This helps in that you won't miss calling `JSNES` withnout `new` but still kinda lame. Work will also be put in to removing the constructor aspects.

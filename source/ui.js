@@ -147,17 +147,17 @@ if (typeof jQuery !== 'undefined') {
                 self.resetCanvas();
 
                 /*
-                 * Keyboard
+                 * Controllers
                  */
                 $(document).
                     bind('keydown', function(evt) {
-                        self.nes.keyboard.keyDown(evt);
+                        self.nes.controllers.buttonDown(evt, 'keyboard');
                     }).
                     bind('keyup', function(evt) {
-                        self.nes.keyboard.keyUp(evt);
+                        self.nes.controllers.buttonUp(evt, 'keyboard');
                     }).
                     bind('keypress', function(evt) {
-                        self.nes.keyboard.keyPress(evt);
+                        self.nes.controllers.buttonPress(evt, 'keyboard');
                     });
 
                 /*
