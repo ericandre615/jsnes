@@ -23,6 +23,7 @@ import PPU from './ppu';
 import PAPU from './papu';
 import ROM from './rom';
 import Controllers from './controllers';
+import Gamepad from './gamepads';
 
 const DummyUI = function(nes) {
     this.nes = nes;
@@ -64,6 +65,7 @@ const JSNES = function(opts) {
     this.papu = new PAPU(this);
     this.mmap = null; // set in loadRom()
     this.controllers = new Controllers();
+    this.gamepad = new Gamepad(this);
 
     this.ui.updateStatus("Ready to load a ROM.");
 

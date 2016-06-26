@@ -3,6 +3,18 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>JSNES: A JavaScript NES emulator</title>
+    <style>
+      #gamepad-config-menu {
+        position: fixed;
+        width: 40%;
+        background: white;
+        box-shadow: 0px 0px 7px 2px #969292;
+        border: 2px solid grey;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
 </head>
 
 <body>
@@ -58,6 +70,45 @@
         </tr>
     </table>
 
+    <div id="gamepad-config-menu" style="display:none;">
+      <ul>
+        <li>
+        <label>A Button</label>
+        <button id="a-btn" class="set-button" value="A">Set</button>
+        </li>
+        <li>
+        <label>B Button</label>
+        <button id="b-btn" class="set-button" value="B">Set</button>
+        </li>
+        <li>
+        <label>Select Button</label>
+        <button id="select-btn" class="set-button" value="SELECT">Set</button>
+        </li>
+        <li>
+        <label>Start Button</label>
+        <button id="start-btn" class="set-button" value="START">Set</button>
+        </li>
+        <li>
+        <label>UP Button</label>
+        <button id="up-btn" class="set-button" value="UP">Set</button>
+        </li>
+        <li>
+        <label>DOWN Button</label>
+        <button id="down-btn" class="set-button" value="DOWN">Set</button>
+        </li>
+        <li>
+        <label>LEFT Button</label>
+        <button id="left-btn" class="set-button" value="LEFT">Set</button>
+        </li>
+        <li>
+        <label>RIGHT Button</label>
+        <button id="right-btn" class="set-button" value="RIGHT">Set</button>
+        </li>
+        <li>
+        <button id="close-gamepad-config">Close</button>
+        </li>
+      </ul>
+    </div>
 
     <script src="lib/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="lib/dynamicaudio-min.js" type="text/javascript" charset="utf-8"></script>

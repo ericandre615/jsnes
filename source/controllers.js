@@ -79,7 +79,7 @@ Controllers.prototype = {
     },
 
     buttonDown: function(evt, type) {
-        let buttonPressed = (type === 'keyboard') ? evt.keyCode : false;
+        let buttonPressed = (type === 'keyboard') ? evt.keyCode : evt.detail.value;
         //evt.keyCode
         if (!this.setButton(buttonPressed, 0x41) && evt.preventDefault) {
             evt.preventDefault();
@@ -100,6 +100,8 @@ Controllers.prototype = {
 
 Controllers.prototype.configureButton = function(player = 'player_one', type = 'keyboard', button = null, setButton = 'A') {
   this.config[player].mapping[setButton] = button;
+  console.log('mapping button');
+  this.config([player].mapping);
   return this;
 }
 

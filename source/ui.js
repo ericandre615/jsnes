@@ -43,7 +43,8 @@ if (typeof jQuery !== 'undefined') {
                     pause: $('<input type="button" value="pause" class="nes-pause" disabled="disabled">').appendTo(self.controls),
                     restart: $('<input type="button" value="restart" class="nes-restart" disabled="disabled">').appendTo(self.controls),
                     sound: $('<input type="button" value="enable sound" class="nes-enablesound">').appendTo(self.controls),
-                    zoom: $('<input type="button" value="zoom in" class="nes-zoom">').appendTo(self.controls)
+                    zoom: $('<input type="button" value="zoom in" class="nes-zoom">').appendTo(self.controls),
+                    gamepadConfig: $('<input type="button" value="gamepad-config" class="nes-gamepad-config" disabled="disabled">').appendTo(self.controls)
                 };
                 self.status = $('<p class="nes-status">Booting up...</p>').appendTo(self.root);
                 self.root.appendTo(parent);
@@ -106,6 +107,40 @@ if (typeof jQuery !== 'undefined') {
                     }
                 });
 
+                self.gamepadConfig = false;
+                self.buttons.gamepadConfig.attr('disabled', false);
+                self.buttons.gamepadConfig.click(function() {
+                  if(!self.gamepadConfig) {
+                    self.gamepadConfig = true;
+                    self.buttons.gamepadConfig.attr('disabled', true);
+                    // show menu/dialog
+                    $('#gamepad-config-menu').css('display', 'block');
+                  }
+
+                 $('#gamepad-config-menu').click(function (e) {
+                    if(e.target && e.target.nodeName == 'BUTTON') {
+                      if(e.target.classList.contains('set-button')) {
+                        let setButton = e.target.value.toUpperCase();
+                        console.log('we got ', e.target.value);
+                        // listen for button assignment
+                        window.addEventListener('buttonpressed', function configureButton(e) {
+                          if(e.detail) {
+                            let button = e.detail.value;
+                            console.log('SET Button ', button, setButton);
+                            self.nes.controllers.configureButton('player_one', 'gamepad', button, setButton);
+                            window.removeEventListener('buttonpressed', configureButton);
+                          }
+                        }, false);
+                      }
+                    }
+                  });
+
+                 $('#close-gamepad-config').click(function closeMenu(e) { 
+                  $('#close-gamepad-config').removeEventListener('click', closeMenu);
+                  $('#gamepad-config-menu').css('display', 'none');
+                 });
+                });
+
                 /*
                  * Lightgun experiments with mouse
                  * (Requires jquery.dimensions.js)
@@ -160,6 +195,11 @@ if (typeof jQuery !== 'undefined') {
                         self.nes.controllers.buttonPress(evt, 'keyboard');
                     });
 
+                $(window).
+                  bind('buttonpressed', function(evt) {
+                    console.log('nes btn press', evt.default);
+                    self.nes.controllers.setButton(evt.default.value, 0x41);
+                  });
                 /*
                  * Sound
                  */
