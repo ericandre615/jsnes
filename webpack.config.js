@@ -20,7 +20,7 @@ module.exports = {
   },
   devServer: {
     inline: true,
-    contentBase: "./public"
+    contentBase: "./"
   },
   module: {
     loaders: [

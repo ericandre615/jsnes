@@ -56,14 +56,20 @@ Gamepad.prototype.gamepadListener = function() {
     for(var i = 0, len = gamepad.buttons.length; i < len; i++) {
       if(Gamepad.prototype.isButtonPressed(gamepad.buttons[i])) {
         //trigger press event
-        var buttonPressed = new CustomEvent('buttonpressed', {detail: {id: i, value: gamepad.buttons[i], type: 'button', message: 'button pressed'}});
+        var buttonPressed = new CustomEvent('buttonpressed', {detail: {id: i, value: `gamepad${i}`, type: 'button', message: true}});
+        window.dispatchEvent(buttonPressed);
+      } else {
+        var buttonPressed = new CustomEvent('buttonpressed', {detail: {id: i, value: `gamepad${i}`, type: 'button', message: false}});
         window.dispatchEvent(buttonPressed);
       }
     }
 
     for(var j = 0, l = gamepad.axes.length; j < l; j++) {
       if(gamepad.axes[j] !== 0) { 
-        var buttonPressed = new CustomEvent('buttonpressed', {detail: {id: j, value: gamepad.axes[j], type: 'axis', message: 'direction pressed'}}); 
+        var buttonPressed = new CustomEvent('buttonpressed', {detail: {id: j, value: `gamepad-axis-${1}${gamepad.axes[j]}`, type: 'axis', message: true}}); 
+        window.dispatchEvent(buttonPressed);
+      } else {
+        var buttonPressed = new CustomEvent('buttonpressed', {detail: {id: j, value: `gamepad-axis-${1}${gamepad.axes[j]}`, type: 'axis', message: false}}); 
         window.dispatchEvent(buttonPressed);
       }
     }

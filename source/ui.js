@@ -136,7 +136,7 @@ if (typeof jQuery !== 'undefined') {
                   });
 
                  $('#close-gamepad-config').click(function closeMenu(e) { 
-                  $('#close-gamepad-config').removeEventListener('click', closeMenu);
+                  document.querySelector('#close-gamepad-config').removeEventListener('click', closeMenu);
                   $('#gamepad-config-menu').css('display', 'none');
                  });
                 });
@@ -197,8 +197,12 @@ if (typeof jQuery !== 'undefined') {
 
                 $(window).
                   bind('buttonpressed', function(evt) {
-                    console.log('nes btn press', evt.default);
-                    self.nes.controllers.setButton(evt.default.value, 0x41);
+                    console.log('nes btn press', evt.detail);
+                    if(evt.message) {
+                      self.nes.controllers.buttonDown(evt, 'gamepad');
+                    } else {
+                      self.nes.controllers.buttonUp(evt, 'keyboard');
+                    }
                   });
                 /*
                  * Sound

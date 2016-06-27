@@ -55,6 +55,8 @@ const Controllers = function(config = defaultConfig) {
 
 Controllers.prototype = {
     setButton: function(button, value) {
+        
+        console.log('control state ',this.state1);
         switch (button) {
             case (this.config.player_one.mapping.A): this.state1[this.buttons.A] = value; break;      // X
             case (this.config.player_one.mapping.B): this.state1[this.buttons.B] = value; break;      // Z
@@ -87,7 +89,7 @@ Controllers.prototype = {
     },
 
     buttonUp: function(evt, type) {
-        let buttonPressed = (type === 'keyboard') ? evt.keyCode : false;
+        let buttonPressed = (type === 'keyboard') ? evt.keyCode : evt.detail.value;
         if (!this.setButton(buttonPressed, 0x40) && evt.preventDefault) {
             evt.preventDefault();
         }
@@ -101,7 +103,7 @@ Controllers.prototype = {
 Controllers.prototype.configureButton = function(player = 'player_one', type = 'keyboard', button = null, setButton = 'A') {
   this.config[player].mapping[setButton] = button;
   console.log('mapping button');
-  this.config([player].mapping);
+  console.log(this.config[player].mapping);
   return this;
 }
 
